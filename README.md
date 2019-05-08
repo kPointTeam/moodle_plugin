@@ -1,4 +1,4 @@
-# moodle_plugin
+# kPoint_moodle_plugin
 **Description**
 * kPoint's Video Package for Moodle 3.5 and above makes it easy to use videos from the kPoint's powerful Enterprise Video Platform to any Moodle powered learning portal. The package is developed specifically for Moodle and seamlessly integrates with Moodle’s other features and modules, such as resources and activities, so that users can search and embed media easily.
 
@@ -23,7 +23,7 @@
 * Domain name e.g., ktpl.kPoint.com
 * Minimum moodle version 3.5
 
-To get your client id and secret key, please contact your customer support representative or write to helpdesk@kpoin.com
+To get your client id and secret key, please contact your customer support representative or write to helpdesk@kpoint.com
 
 
 **Installation Process**
