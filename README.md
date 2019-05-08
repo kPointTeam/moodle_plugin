@@ -23,7 +23,7 @@
 * Domain name e.g., ktpl.kPoint.com
 * Minimum moodle version 3.5
 
-* To get your client id and secret key, please contact your customer support representative or write to helpdesk@kpoin.com
+To get your client id and secret key, please contact your customer support representative or write to helpdesk@kpoin.com
 
 
 **Installation Process**
@@ -32,11 +32,11 @@
 * Install kPoint Activity plug-in by going to the "Site Administration" area. Then go to the "Plugins" tab. Next, select “Install plugin”.Next select kPoint activity plugin zip file and click on “Install from zip file”.Next click on “upgrade moodle database now”.
 * Enter the kPoint credentials by going to the "Site Administration" area. Then go to the "Plugins" tab. Next, scroll down to the "repositories" section. Click "Manage repositories".Then scroll down to the "kPoint" section and select Enable and visible from Dropdown. Enter the following information:
 
-      Repository plugin name | Name of the Repository
-      Client ID              | This is your kPoint accounts client id.
-      Secret Key             | This is your kPoint accounts secret key.
-      Email                  | kPoint Site Administrator id
-      Display Name           | site Administrator display name
+      Repository plugin name : Name of the Repository
+      Client ID              : This is your kPoint accounts client id.
+      Secret Key             : This is your kPoint accounts secret key.
+      Email                  : kPoint Site Administrator id
+      Display Name           : site Administrator display name
 
 * Next,Click on “Test” for Credential Authentication. If the test is successful then “Save” button will be enabled. Click on “Save” to save configuration.
 
