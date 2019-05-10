@@ -1,5 +1,6 @@
 # kPoint Moodle Plugin
 **Description**
+
 kPoint's Video Package for Moodle 3.5 and above makes it easy to use videos from the kPoint's powerful Enterprise Video Platform to any Moodle powered learning portal. The package is developed specifically for Moodle and seamlessly integrates with Moodle’s other features and modules, such as resources and activities, so that users can search and embed media easily.
 
 The package adds the following features for all users:
