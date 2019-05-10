@@ -12,6 +12,7 @@ Before installing kPoint activity plugin make sure you install the kPoint reposi
 
 
 **Version information:**
+
 Please take note of the version of Moodle you have and the version of the plug-in you are installing.
   * Make sure you have moodle 3.5 and above version.
 
@@ -28,10 +29,10 @@ To get your client id and secret key, please contact your customer support repre
 
 
 **Installation Process**
-* Download the latest kPoint Repository plugin and kPoint Activity plugin.
-* Install kPoint Repository plugin by going to the "Site Administration" area. Then go to the "Plugins" tab. Next, select “Install plugin”. Next select kPoint repository plugin zip file and click on “Install from zip file”. Next click on “upgrade moodle database now”.
-* Install kPoint Activity plug-in by going to the "Site Administration" area. Then go to the "Plugins" tab. Next, select “Install plugin”.Next select kPoint activity plugin zip file and click on “Install from zip file”.Next click on “upgrade moodle database now”.
-* Enter the kPoint credentials by going to the "Site Administration" area. Then go to the "Plugins" tab. Next, scroll down to the "repositories" section. Click "Manage repositories".Then scroll down to the "kPoint" section and select Enable and visible from Dropdown. Enter the following information:
+1. Download the latest kPoint Repository plugin and kPoint Activity plugin.
+1. Install kPoint Repository plugin by going to the "Site Administration" area. Then go to the "Plugins" tab. Next, select “Install plugin”. Next select kPoint repository plugin zip file and click on “Install from zip file”. Next click on “upgrade moodle database now”.
+1. Install kPoint Activity plug-in by going to the "Site Administration" area. Then go to the "Plugins" tab. Next, select “Install plugin”.Next select kPoint activity plugin zip file and click on “Install from zip file”.Next click on “upgrade moodle database now”.
+1. Enter the kPoint credentials by going to the "Site Administration" area. Then go to the "Plugins" tab. Next, scroll down to the "repositories" section. Click "Manage repositories".Then scroll down to the "kPoint" section and select Enable and visible from Dropdown. Enter the following information:
 
       Repository plugin name | Name of the Repository
       Client ID              | This is your kPoint accounts client id.
@@ -39,5 +40,5 @@ To get your client id and secret key, please contact your customer support repre
       Email                  | kPoint Site Administrator id
       Display Name           | site Administrator display name
 
-* Next,Click on “Test” for Credential Authentication. If the test is successful then “Save” button will be enabled. Click on “Save” to save configuration.
+1. Next,Click on “Test” for Credential Authentication. If the test is successful then “Save” button will be enabled. Click on “Save” to save configuration.
 
