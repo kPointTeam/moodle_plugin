@@ -19,11 +19,11 @@ Please take note of the version of Moodle you have and the version of the plug-i
 
 **Installing the kPoint's video package for Moodle 3.5 and above**
 **Prerequisites**
-* A kPoint siteadmin user’s account on your an active domain
-* Client id
-* Secret key
-* Domain name e.g., ktpl.kPoint.com
-* Minimum moodle version 3.5
+1. A kPoint siteadmin user’s account on your an active domain
+1. Client id
+1. Secret key
+1. Domain name e.g., ktpl.kPoint.com
+1. Minimum moodle version 3.5
 
 To get your client id and secret key, please contact your customer support representative or write to helpdesk@kpoint.com
 
