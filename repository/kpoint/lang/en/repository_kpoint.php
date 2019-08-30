@@ -24,6 +24,7 @@ $string['myvideo'] = 'My Videos';
 $string['lbl_info_domain'] = 'Add only kPoint domain name(without protocol "http://" or "https://")';
 $string['auth_via_accountno'] = 'Enable account number';
 $string['enable_analytics'] = 'Enable viewership tracking';
+$string['enable_userid'] = 'Enable UserID';
 $string['account_no'] = 'Account number';
 $string['user_accno_field'] = 'User profile field mapping to Account number';
 $string['lbl_accountno_required'] = 'Account number is a required field';

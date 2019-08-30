@@ -42,6 +42,12 @@ require(['jquery'], function ($) {
                     $('#id_account_no').next('#lbl_accountno_required').remove();
                 }
             });
+            
+            $('#id_enable_userid').change(function() {
+                $('#id_submitbutton').attr('disabled', 'disabled');
+                removeMark();
+            });
+            
             testCredentials();
         });
   });

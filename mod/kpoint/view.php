@@ -61,7 +61,8 @@ if ($moduleinstance) {
         }
     }
 
-    $objKp = new \repository_kpoint\kpointapi_mdl($auth_via_accountno, $accountno);
+    $enable_userid = get_config('kpoint', 'enable_userid');
+    $objKp = new \repository_kpoint\kpointapi_mdl($auth_via_accountno, $accountno, $enable_userid);
     $authToken = $objKp->generate_token($USER->email, $USER->username);
     $strEmbedCode = preg_replace("/style=(\'|\")width:(\d+)px;height:(\d+)px(\'|\")/", "style='width:100%'", $strEmbedCode);
 

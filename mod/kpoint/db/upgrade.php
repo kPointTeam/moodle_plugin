@@ -11,7 +11,7 @@ function xmldb_kpoint_upgrade($oldversion)
     global $DB;
     $dbman = $DB->get_manager();
 
-    if ($oldversion < 2019043000) {
+    if ($oldversion < 2019061200) {
         // Change status to be allowed to be null.
         $table = new xmldb_table('kpoint');
         $description = new xmldb_field('description');
@@ -35,6 +35,6 @@ function xmldb_kpoint_upgrade($oldversion)
         }
 
         // Savepoint reached.
-        upgrade_mod_savepoint(true, 2019043000, 'kpoint');
+        upgrade_mod_savepoint(true, 2019061200, 'kpoint');
     }   
 }

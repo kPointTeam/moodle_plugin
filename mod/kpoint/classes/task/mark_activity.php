@@ -30,6 +30,7 @@ class mark_activity extends \core\task\scheduled_task
     {
         $enable_analytics = get_config('kpoint', 'enable_analytics');
         if($enable_analytics !='1') {
+            echo "\nAnalytics tracking is not enabled, exiting.\n\n";
             return true;
         }
         global $DB;
@@ -75,8 +76,8 @@ class mark_activity extends \core\task\scheduled_task
             } else {
                 $accountno = get_config('kpoint','account_no');
             }
-            
-            $objKp = new \repository_kpoint\kpointapi_mdl($auth_via_accountno,$accountno);
+            $enable_userid = get_config('kpoint', 'enable_userid');
+            $objKp = new \repository_kpoint\kpointapi_mdl($auth_via_accountno,$accountno,$enable_userid);
             $msg='Cron running for: ';
             $moduleinstance = null;
             $modulecontext = null;
@@ -138,7 +139,7 @@ class mark_activity extends \core\task\scheduled_task
             }
             if($noofrecords>0) {
                 $params = array(
-                    'context' => $modulecontext,
+                    'context' => \context_system::instance(),
                     'objectid' => $moduleinstance->id,
                     'other' => $msg
                 );

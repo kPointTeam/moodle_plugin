@@ -19,7 +19,7 @@ class kpointapi_mdl extends kpointapi
      * constructor
      * @param type $email
      */
-    public function __construct($isAuthViaAccountno = '',$accountNo = '')
+    public function __construct($isAuthViaAccountno = '',$accountNo = '',$enable_userid='')
     {
         $clientId       = get_config('kpoint', 'client_id');
         $secret         = get_config('kpoint', 'secret');
@@ -28,7 +28,7 @@ class kpointapi_mdl extends kpointapi
         $siteadminName  = get_config('kpoint', 'display_name');
         $user_account_no_field = get_config('kpoint', 'user_account_no_field');
         
-        parent::__construct($clientId, $secret, $domain ,$isAuthViaAccountno, $accountNo, $siteadminEmail, $siteadminName);
+        parent::__construct($clientId, $secret, $domain ,$isAuthViaAccountno, $accountNo, $enable_userid, $siteadminEmail, $siteadminName);
     }
 
     /**
@@ -115,9 +115,9 @@ class kpointapi_mdl extends kpointapi
      * @param type $videoId
      * @return type
      */
-    public function get_video_viewership($videoId, $email, $details = false, $via_xauthTocken = false)
+    public function get_video_viewership($videoId, $email, $details = false)
     {
-        return parent::get_video_viewership($videoId, $email, $details, $via_xauthTocken);
+        return parent::get_video_viewership($videoId, $email, $details);
     }
 
     /**

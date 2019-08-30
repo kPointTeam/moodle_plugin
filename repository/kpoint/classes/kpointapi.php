@@ -38,6 +38,12 @@ class kpointapi
      * siteadminName
      * @var string
      */
+    private $enableUserID;
+    
+    /**
+     * siteadminName
+     * @var string
+     */
     private $accountNo;
 
     /**
@@ -69,7 +75,7 @@ class kpointapi
      * @param type $email
      * @param type $displayName
      */
-    public function __construct($clientId, $secret, $domain, $isAuthViaAccountno,$accountNo='', $siteadminEmail = '', $siteadminName = '')
+    public function __construct($clientId, $secret, $domain, $isAuthViaAccountno,$accountNo='', $enable_userid, $siteadminEmail = '', $siteadminName = '')
     {
         $this->clientId            = $clientId;
         $this->secret              = $secret;
@@ -78,6 +84,7 @@ class kpointapi
         $this->accountNo           = $accountNo;
         $this->siteadminEmail      = $siteadminEmail;
         $this->siteadminName       = $siteadminName;
+        $this->enableUserID        = $enable_userid;
     }
 
     /**
@@ -95,7 +102,11 @@ class kpointapi
 
         $xtencode="";
         if($this->isAuthViaAccountno == '1'){
-            $xtencode= "client_id=$this->clientId&user_email=$email&user_name=".rawurlencode($displayName)."&challenge=$challenge&account_number=$this->accountNo&xauth_token=$b64token";
+            $user_id = '';
+            if($this->enableUserID == '1') {
+                $user_id = '&user_id='.$this->accountNo;
+            }
+            $xtencode= "client_id=$this->clientId&user_email=$email&user_name=".rawurlencode($displayName)."&challenge=$challenge&account_number=$this->accountNo".$user_id."&xauth_token=$b64token";
         } else {
             $xtencode= "client_id=$this->clientId&user_email=$email&user_name=".rawurlencode($displayName)."&challenge=$challenge&xauth_token=$b64token";
         }
@@ -115,24 +126,19 @@ class kpointapi
      * @param type $displayName
      * @return type
      */
-    public function get_xauth_token($email, $displayName, $challenge = null, $via_xauthTocken = false)
+    public function get_xauth_token($email, $displayName, $challenge = null)
     {
-         global $DB;
+        global $DB;
         if (!$challenge) {
             $challenge = time();
         }
         $data = "";
-       
-        if($via_xauthTocken == true) {
-            $data = "$this->clientId:$email:$displayName:$challenge";
+        if($this->isAuthViaAccountno == '1'){
+            $data = "$this->clientId:$email:$displayName:$challenge:$this->accountNo";
         } else {
-            if($this->isAuthViaAccountno == '1'){
-                $data = "$this->clientId:$email:$displayName:$challenge:$this->accountNo";
-            } else {
-                $data = "$this->clientId:$email:$displayName:$challenge";
-            }            
-        }
-            
+            $data = "$this->clientId:$email:$displayName:$challenge";
+        }            
+        
         $xauth_token = hash_hmac("md5", $data, $this->secret, true);
 
         $b64token = base64_encode($xauth_token);
@@ -211,18 +217,17 @@ class kpointapi
      * @param type $videoId
      * @return type array video json data
      */
-    public function get_video_viewership($videoId, $email,$details = false, $via_xauthTocken = false)
+    public function get_video_viewership($videoId, $email,$details = false)
     {
         $curl = curl_init();
 
         $apiURL = self::API_ENDPOINT_VIERERSHIP;
         $apiURL = str_replace('<VIDEOID>', $videoId, $apiURL);
-         //prepare api call
-        if($via_xauthTocken == true) {
-            $apiURL = $this->HTTP_PROTO.$this->domain.$apiURL.'?'.$this->prepare_viewership_params($email, $details, $via_xauthTocken);
-        } else {
-            $apiURL = $this->HTTP_PROTO.$this->domain.$apiURL.'?by=user&email='.$email.'&xt='.$this->generate_token($this->siteadminEmail, $this->siteadminName);
+        $detailParam = '';
+        if($details) {
+            $detailParam = '&details=true';
         }
+        $apiURL = $this->HTTP_PROTO.$this->domain.$apiURL.'?by=user&email='.$email.'&xt='.$this->generate_token($this->siteadminEmail, $this->siteadminName).$detailParam;
         return $this->call_api($apiURL);
     }
 
@@ -245,6 +250,7 @@ class kpointapi
                 "&user_email=".$this->siteadminEmail."&email=".$userEmail.
                 "&challenge=".$challenge.
                 "&xauth_token=".$this->get_xauth_token($this->siteadminEmail, $this->siteadminName, $challenge, $via_xauthTocken).$detailParam;
+        
     }
 
     /**
@@ -273,7 +279,6 @@ class kpointapi
      */
     public function call_api($apiURL)
     {
-     
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => $apiURL,

@@ -82,8 +82,9 @@ class mod_kpoint_mod_form extends moodleform_mod
                 $accountno ='';
             }  
         }
-
-        $objKp    = new \repository_kpoint\kpointapi_mdl($auth_via_accountno, $accountno);
+        
+        $enable_userid = get_config('kpoint', 'enable_userid');
+        $objKp    = new \repository_kpoint\kpointapi_mdl($auth_via_accountno, $accountno, $enable_userid);
         $response = $objKp->get_video_data($videoId, $USER->email, $USER->username);
 
         $embedCode = '';

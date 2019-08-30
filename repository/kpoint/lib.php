@@ -37,7 +37,7 @@ class repository_kpoint extends repository
 
         $PAGE->requires->js('/repository/kpoint/js/kpoint.js');
         $PAGE->requires->js_init_call('get_moodleroot',array($CFG->wwwroot));
-        $clientId = $secret = $domain = $email = $displayName = $accountNo = $enableAnalytics = '';
+        $clientId = $secret = $domain = $email = $displayName = $accountNo = $enableAnalytics = $enableUserID = '';
 
         $clientId    = get_config('kpoint', 'client_id');
         $secret      = get_config('kpoint', 'secret');
@@ -48,6 +48,7 @@ class repository_kpoint extends repository
         $user_account_no_field = get_config('kpoint', 'user_account_no_field');
         $auth_via_accountno = get_config('kpoint', 'auth_via_accountno');
         $enableAnalytics = get_config('kpoint', '$enable_analytics');
+        $enableUserID = get_config('kpoint', '$enable_userid');
         if(empty($clientId)) {
             $clientId = '';
         }
@@ -72,6 +73,9 @@ class repository_kpoint extends repository
         if(empty($auth_via_accountno)) {
             $auth_via_accountno = '';
         }
+        if(empty($enableUserID)) {
+            $enableUserID = '';
+        }
         parent::type_config_form($mform);
 
         $strrequired = get_string('required');
@@ -90,6 +94,7 @@ class repository_kpoint extends repository
         $mform->addElement('text', 'account_no', get_string('account_no', 'repository_kpoint'), array('value'=>$accountNo,'size' => '40', 'maxlength' => 60));
         $mform->setType('account_no', PARAM_RAW_TRIMMED);
         $mform->addElement('select', 'user_account_no_field', get_string('user_accno_field', 'repository_kpoint'), $DB->get_records_select_menu('user_info_field', 'datatype="text"', null , $sort='', $fields='id,name', $limitfrom=0, $limitnum=0));
+        $mform->addElement('checkbox', 'enable_userid', get_string('enable_userid', 'repository_kpoint'));
         $mform->addElement('checkbox', 'enable_analytics', get_string('enable_analytics', 'repository_kpoint'));
         $mform->hideIf('account_no', 'auth_via_accountno');
         $mform->hideIf('user_account_no_field', 'auth_via_accountno');
@@ -123,7 +128,7 @@ class repository_kpoint extends repository
      */
     public static function get_type_option_names()
     {
-        return array('client_id', 'secret', 'domain', 'email', 'display_name','auth_via_accountno', 'account_no', 'user_account_no_field', 'enable_analytics', 'pluginname');
+        return array('client_id', 'secret', 'domain', 'email', 'display_name','auth_via_accountno', 'account_no', 'user_account_no_field', 'enable_userid', 'enable_analytics', 'pluginname');
     }
 
     /**
@@ -152,7 +157,8 @@ class repository_kpoint extends repository
                 $accountno ='';
             }
         }
-        $objKp = new \repository_kpoint\kpointapi_mdl($auth_via_accountno, $accountno);
+        $enable_userid = get_config('kpoint', 'enable_userid');
+        $objKp = new \repository_kpoint\kpointapi_mdl($auth_via_accountno, $accountno, $enable_userid);
         $page = ($page == '') ? 1 : $page;
 
         $arrData = [];
@@ -192,6 +198,7 @@ class repository_kpoint extends repository
             $this->keyword = optional_param('s', '', PARAM_RAW);
         }
         $sess_keyword = 'kpoint_'.$this->id.'_keyword';
+		$sess_searchfilter = 'kpoint_'.$this->id.'_searchfilter';
         if((empty($this->keyword) || empty($this->searchfilter)) && optional_param('page', '', PARAM_RAW)) {
             // This is the request of another page for the last search, retrieve the cached keyword.
             if (isset($SESSION->{$sess_keyword})) {

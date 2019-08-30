@@ -30,7 +30,21 @@ $courseModuleID     = $_GET['courseModuleID'];
 $userEmail          = $USER->email;
 $errormsg='';
 
-$objKp = new \repository_kpoint\kpointapi_mdl();
+$auth_via_accountno = get_config('kpoint', 'auth_via_accountno');
+$accountno ='';
+if($auth_via_accountno !='1') {
+    $accountno ='';
+} else {
+    $user_info_data         = $DB->get_record('user_info_data', array('userid' => ($USER->id),'fieldid' => (get_config('kpoint', 'user_account_no_field'))), '*', IGNORE_MISSING);
+    if($user_info_data ) {
+        $accountno =$user_info_data->data;
+    } else {
+        $accountno ='';
+    }  
+}
+
+$enable_userid = get_config('kpoint', 'enable_userid');
+$objKp    = new \repository_kpoint\kpointapi_mdl($auth_via_accountno, $accountno, $enable_userid);
 $response = NULL;
 $response['isError']=true;
 

@@ -22,7 +22,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version      = 2019043000;        // If version == 0 then module will not be installed
+$plugin->version      = 2019061200;        // If version == 0 then module will not be installed
 $plugin->requires     = 2017111300;        // Requires this Moodle version
 $plugin->maturity     = MATURITY_STABLE;   // Maturity
 $plugin->component    = 'mod_kpoint';  // To check on upgrade, that module sits in correct place

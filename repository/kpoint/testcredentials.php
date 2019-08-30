@@ -8,7 +8,7 @@
 
 require_once('classes/kpointapi.php');
 
-$clientId = $secret = $domain = $accountNo = $userAccountnoField =  $isAuthViaAccountno = '';
+$clientId = $secret = $domain = $accountNo = $userAccountnoField =  $isAuthViaAccountno = $enableUserID = '';
 
 if(isset($_REQUEST['client_id'])) {
     $clientId = $_REQUEST['client_id'];
@@ -31,8 +31,11 @@ if(isset($_REQUEST['auth_via_accountno']) && $_REQUEST['auth_via_accountno'] == 
 if(isset($_REQUEST['auth_via_accountno'])) {
     $isAuthViaAccountno = $_REQUEST['auth_via_accountno'];
 }
+if(isset($_REQUEST['enable_userid'])) {
+    $enableUserID = $_REQUEST['enable_userid'];
+}
 
-$objKp   = new \repository_kpoint\kpointapi($clientId, $secret, $domain, $isAuthViaAccountno, $accountNo);
+$objKp   = new \repository_kpoint\kpointapi($clientId, $secret, $domain, $isAuthViaAccountno, $accountNo,$enableUserID);
 $arrData = $objKp->get_data($email, $displayName, 'video', 0, 1);
 
 $responseData        = json_decode($arrData['response']);
